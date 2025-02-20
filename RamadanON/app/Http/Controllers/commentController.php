@@ -23,5 +23,11 @@ class commentController extends Controller
         session()->flash('success', 'Votre commentaire a été ajouté avec succès.');
         return redirect()->route('index');
     }
+    public function view($id)
+    {
+        $recipe = $id;
+        return view('commentForm', compact('recipe'));
+    }
+
 
 }
