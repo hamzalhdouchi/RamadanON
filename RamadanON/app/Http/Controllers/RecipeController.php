@@ -38,4 +38,10 @@ class RecipeController extends Controller
         session()->flash('success', 'Recette ajoutée avec succès !');
         return back();
     }
+    public function pecipesDitail($id)
+    {
+        $recipe = Recipe::findOrFail($id);
+        $comments = Comment::where('recipe_id', $id)->get();
+        return view('recipe', compact('recipe', 'comments'));
+    }
 }
