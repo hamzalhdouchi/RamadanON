@@ -14,6 +14,8 @@ class RecipeController extends Controller
         if ($request->has('category') && $request->category != 0) {
             $query->where('category_id', $request->category);
         }
+        $totalRecipes = Postes::count();
+        $popularRecipes = Recipe::withCount('comments')->orderBy('comments_count', 'desc')->limit(5)->get();
 
         $recipes = $query->get();
 
