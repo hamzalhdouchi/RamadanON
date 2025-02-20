@@ -21,4 +21,9 @@ class RecipeController extends Controller
 
         return view('RamadanON', compact('Postes', 'recipes', 'totalRecipes', 'popularRecipes'));
     }
+    public function show(Request $request)
+    {
+        $id = $request->id;
+        $post = Postes::find($id);
+    }
 }
