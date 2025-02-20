@@ -26,4 +26,34 @@ class RecipeController extends Controller
         $id = $request->id;
         $post = Postes::find($id);
     }
+    public function store(Request $request)
+    {
+        $request->validate([
+            'username' => 'required|min:3',
+            'Titre' => 'required|unique:postes',
+            'content' => 'required',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:300',
+        ]);
+
+        $name = $request->username;
+        $titre = $request->Titre;
+        $contenu = $request->content;
+
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('experiences', 'public');
+        } else {
+            $imagePath = null;
+        }
+
+        Postes::create([
+            'Titre' => $titre,
+            'content' => $contenu,
+            'nome_createur' => $name,
+            'image' => $imagePath,
+        ]);
+
+        session()->flash('success', 'Post created successfully!');
+
+        return redirect()->route('index');
+    }
 }
