@@ -1,11 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Postes;
+use App\Models\comments;
 use Illuminate\Http\Request;
 
-class commentController extends Controller
+class CommenteController extends Controller
 {
+
     public function creatComment(Request $request)
     {
         $validated = $request->validate([
@@ -23,11 +25,10 @@ class commentController extends Controller
         session()->flash('success', 'Votre commentaire a été ajouté avec succès.');
         return redirect()->route('index');
     }
-    public function view($id)
-    {
+        public function view($id){
         $recipe = $id;
         return view('commentForm', compact('recipe'));
-    }
-
+        }
 
 }
+

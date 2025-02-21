@@ -3,9 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\recipes;
+use App\Models\comments;
+
 
 class RecipeController extends Controller
 {
+
     public function store(Request $request) {
 
         $request->validate([
@@ -24,8 +28,7 @@ class RecipeController extends Controller
         } else {
             $imagePath = null;
         }
-
-        Recipe::create([
+        recipes::create([
             'title' => $request->title,
             'description' => $request->description,
             'prep_time' => $request->prep_time,
@@ -40,8 +43,9 @@ class RecipeController extends Controller
     }
     public function pecipesDitail($id)
     {
-        $recipe = Recipe::findOrFail($id);
-        $comments = Comment::where('recipe_id', $id)->get();
-        return view('recipe', compact('recipe', 'comments'));
+        $recipe = recipes::findOrFail($id);
+        $comments=Comments::where('recipe_id',$id)->get();
+        return view('recipe', compact('recipe','comments'));
     }
+
 }
